@@ -54,10 +54,17 @@ class ShiftsController < ApplicationController
   # DELETE /shifts/1
   # DELETE /shifts/1.json
   def destroy
-    @shift.destroy
+    # Find the correct shift to delete
+    @shift = Shift.find(params[:id])
+
     respond_to do |format|
-      format.html { redirect_to shifts_url, notice: 'Shift was successfully destroyed.' }
-      format.json { head :no_content }
+    if @shift.destroy
+        format.html { redirect_to shifts_url, notice: 'Shift was successfully destroyed.' }
+        format.json { head :no_content }
+    else
+      format.html {redirect_to shifts_url, notice: "Cannot delete shifts"}
+      format.json {render json: @shift.errors, status: unprocessable_entity}
+      end
     end
   end
 
