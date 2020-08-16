@@ -4,12 +4,25 @@ class OrganizationsController < ApplicationController
   # GET /organizations
   # GET /organizations.json
   def index
+    # if current_user
     @organizations = Organization.all
+    #   render :index
+    # else
+    #   format.html { render :index }
+    #   format.json { render json: @organization.errors, status: :unprocessable_entity }
+    # end
   end
 
   # GET /organizations/1
   # GET /organizations/1.json
   def show
+    @organization = Organization.find(params[:id])
+    if @organization
+      render :show
+    else
+      format.html { render :show }
+      format.json { render json: @organization.errors, status: :unprocessable_entity }
+    end
   end
 
   # GET /organizations/new
@@ -62,6 +75,21 @@ class OrganizationsController < ApplicationController
       format.html { redirect_to organizations_url, notice: 'Organization was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def join
+    @organization = Organization.find params[:id]
+    current_user.update_attribute(:organization_id, @organization.id)
+    render current_user
+  end
+
+  def leave
+    @organization = Organization.find params[:id]
+    current_user.update_attribute(:organization_id, nil)
+    userShifts = Shift.where(:user_id => current_user.id)
+    userShifts.destroy_all
+
+    render current_user
   end
 
   private

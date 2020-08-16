@@ -1,24 +1,31 @@
 <p id="notice"><%= notice %></p>
+<h1>Workforce</h1>
 
-<p>
-  <strong>Organization:</strong>
-  <%= @user.organization_id %>
-</p>
+<% unless @user.organization_id %>
+<p>You aren't a member of any organizations.</p>
+<p>Join an existing one or create a new one</p>
+<%  end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+<!--<p>-->
+<!--  <strong>Organization:</strong>-->
+  <%#= @user.organization_id %>
+<!--</p>-->
 
-<p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p>
+<!--<p>-->
+<!--  <strong>Name:</strong>-->
+  <%#= @user.name %>
+<!--</p>-->
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<!--<p>-->
+<!--  <strong>Email:</strong>-->
+  <%#= @user.email %>
+<!--</p>-->
+
+<!--<p>-->
+<!--  <strong>Password:</strong>-->
+  <%#= @user.password %>
+<!--</p>-->
+
+<%= link_to 'Organization', organizations_path %> |
+<%= link_to 'Create Organization', new_organization_path%>

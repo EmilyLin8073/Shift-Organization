@@ -1,14 +1,18 @@
 Rails.application.routes.draw do
-  root 'users#new'
+  root 'session#new'
 
   # Allow shifts route to do get, post, put and delete
   resources :shifts, only:[:index, :create, :update, :destroy]
   # Allow users routes to do post and put
-  resources :users , only:[:create, :update]
+  resources :users , except: [:new, :destroy]
+  resources :organizations
 
-  # Sign up route
+  # Sign up route for user
   get "signup", to: "users#new"
-  resources :organizations, only:[:index, :create, :update, :destroy]
+  get "login", to: "sessions#new"
+  post "login", to: "sessions#create"
+  delete "logout", to: "sessions#destroy"
+
 
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

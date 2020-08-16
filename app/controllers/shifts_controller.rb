@@ -4,7 +4,8 @@ class ShiftsController < ApplicationController
   # GET /shifts
   # GET /shifts.json
   def index
-    @shifts = Shift.all
+    @shifts = Shift.where(:organization_id == current_user.organization_id)
+    render :index
   end
 
   # GET /shifts/1
