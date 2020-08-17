@@ -14,7 +14,7 @@ class User < ApplicationRecord
            foreign_key: :user_id
 
   belongs_to :organization,
-             foreign_key: :organization_id
+             foreign_key: :organization_id, :optional => true
 
   has_secure_password
 end
