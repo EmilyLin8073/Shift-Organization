@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   root 'sessions#new'
 
-  # Allow users routes to do post and put
   resources :users , except: [:new, :destroy]
 
   # Set up sign up route for user
@@ -18,7 +17,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # Allow shifts route to do get, post, put and delete
   resources :shifts
 
 
