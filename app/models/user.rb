@@ -11,8 +11,10 @@ class User < ApplicationRecord
 
   has_many :shifts,
            primary_key: :id,
-           foreign_key: :user_id,
-           class_name: :Shift
+           foreign_key: :user_id
+
+  belongs_to :organization,
+             foreign_key: :organization_id
 
   has_secure_password
 end

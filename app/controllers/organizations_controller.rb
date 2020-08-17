@@ -1,22 +1,21 @@
 class OrganizationsController < ApplicationController
-  before_action :set_organization, only: [:show, :edit, :update, :destroy]
+  before_action :set_organization, only: [:show, :edit, :update, :destroy, :join, :leave]
 
   # GET /organizations
   # GET /organizations.json
   def index
-    # if current_user
+    if current_user
     @organizations = Organization.all
-    #   render :index
-    # else
-    #   format.html { render :index }
-    #   format.json { render json: @organization.errors, status: :unprocessable_entity }
-    # end
+      render :index
+    else
+      format.html { render :index }
+      format.json { render json: @organization.errors, status: :unprocessable_entity }
+    end
   end
 
   # GET /organizations/1
   # GET /organizations/1.json
   def show
-    @organization = Organization.find(params[:id])
     if @organization
       render :show
     else
@@ -54,9 +53,6 @@ class OrganizationsController < ApplicationController
   # PATCH/PUT /organizations/1.json
   def update
     respond_to do |format|
-      # Find the correct organization to edit
-      @organization = Organization.find(params[:id])
-
       if @organization.update(organization_params)
         format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }
         format.json { render :show, status: :ok, location: @organization }
@@ -78,18 +74,16 @@ class OrganizationsController < ApplicationController
   end
 
   def join
-    @organization = Organization.find params[:id]
     current_user.update_attribute(:organization_id, @organization.id)
-    render current_user
+    redirect_to current_user
   end
 
   def leave
-    @organization = Organization.find params[:id]
     current_user.update_attribute(:organization_id, nil)
     userShifts = Shift.where(:user_id => current_user.id)
     userShifts.destroy_all
 
-    render current_user
+    redirect_to current_user
   end
 
   private

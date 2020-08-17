@@ -3,11 +3,9 @@ class Organization < ApplicationRecord
 
   has_many :users,
            primary_key: :id,
-           foreign_key: :organization_id,
-           class_name: :User
+           foreign_key: :organization_id
 
   has_many :shifts,
            primary_key: :id,
-           foreign_key: :organization_id,
-           class_name: :Shift
+           foreign_key: :organization_id
 end
