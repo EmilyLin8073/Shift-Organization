@@ -7,7 +7,7 @@ Coding challenge for Workforce
 
 * Rail version : 6.0.3.2
 
-# Run the Application
+## Run the Application
 
 1. Run the following command
 
