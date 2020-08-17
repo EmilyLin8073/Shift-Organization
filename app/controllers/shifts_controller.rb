@@ -1,6 +1,6 @@
 class ShiftsController < ApplicationController
   before_action :set_shift, only: [:show, :edit, :update, :destroy]
-
+  helper_method :time_difference
   # GET /shifts
   # GET /shifts.json
   def index
@@ -26,6 +26,8 @@ class ShiftsController < ApplicationController
   # POST /shifts.json
   def create
     @shift = Shift.new(shift_params)
+    @shift.user_id = current_user.id
+    @shift.organization_id = current_user.organization_id
 
     respond_to do |format|
       if @shift.save
@@ -73,6 +75,10 @@ class ShiftsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_shift
       @shift = Shift.find(params[:id])
+    end
+
+    def time_difference(start, finish)
+      TimeDifference.between(start, finish).in_hours
     end
 
     # Only allow a list of trusted parameters through.

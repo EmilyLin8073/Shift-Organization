@@ -2,7 +2,7 @@
 
 <h1>Shifts</h1>
 
-<table>
+<table width="90%">
   <thead>
     <tr>
       <th>Employee Name</th>
@@ -16,18 +16,21 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody width="90%">
     <% @shifts.each do |shift| %>
+      <% @hours_worked =  time_difference(shift.start, shift.finish) - (shift.break_length / 60.0)%>
+      <% @shift_cost = @hours_worked * shift.organization.hourly_rate %>
       <tr>
         <td><%= shift.user.name %></td>
         <td><%= shift.start.strftime("%m/%d/%y") %></td>
-        <td><%= shift.start %></td>
-        <td><%= shift.finish %></td>
+        <td><%= shift.start.strftime("%I:%M%p") %></td>
+        <td><%= shift.finish.strftime("%I:%M%p") %></td>
         <td><%= shift.break_length %></td>
-        <td><%= shift.break_length %></td>
-        <td><%= link_to 'Show', shift %></td>
-        <td><%= link_to 'Edit', edit_shift_path(shift) %></td>
-        <td><%= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= @hours_worked %></td>
+        <td><%= @shift_cost %></td>
+<!--        <td><%#= link_to 'Show', shift %></td>-->
+<!--        <td><%#= link_to 'Edit', edit_shift_path(shift) %></td>-->
+<!--        <td><%#= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
       </tr>
     <% end %>
   </tbody>
@@ -35,4 +38,5 @@
 
 <br>
 
-<%#= link_to 'New Shift', new_shift_path %>
+<%= link_to 'Back', user_path(@current_user.id) %> |
+<%= link_to 'Create shift', new_shift_path %>
