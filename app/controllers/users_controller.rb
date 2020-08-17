@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @organization = current_user.organization
+    @organization = @user.organization
   end
 
   # GET /users/new
