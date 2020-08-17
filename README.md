@@ -9,12 +9,12 @@ Coding challenge for Workforce
 
 ## Run the Application
 
-1. Run the following command
+1. Run the following commands
 
-  * bundle install
+   * bundle install
   
-  * npm install
+   * npm install
   
-  * rails db:migrate
+   * rails db:migrate
   
 2. View the application at : http://localhost:3000
